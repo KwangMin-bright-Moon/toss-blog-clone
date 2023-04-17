@@ -1,0 +1,24 @@
+{
+  "name": "toss-blog-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zan-Zan-Moon/toss-blog-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zan-Zan-Moon/toss-blog-clone/issues"
+  },
+  "homepage": "https://github.com/Zan-Zan-Moon/toss-blog-clone#readme",
+  "devDependencies": {
+    "webpack": "^5.79.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
