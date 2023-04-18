@@ -3,11 +3,11 @@ import { designPosts } from './resolvers/mockDesign.js';
 import { developPosts } from './resolvers/mockDevelop.js';
 
 export const handlers = [
-  rest.get('dist/develop/posts', (req, res, ctx) => {
+  rest.get('dist/tech/posts', (req, res, ctx) => {
     return res(ctx.json(developPosts));
   }),
 
-  rest.get('dist/develop/post/:postId', (req, res, ctx) => {
+  rest.get('dist/tech/post/:postId', (req, res, ctx) => {
     const { postId } = req.params;
     const post = developPosts.find((post) => post.id == postId);
     return res(ctx.json(post));
