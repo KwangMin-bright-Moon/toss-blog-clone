@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const designPosts = [
+export const techArticles = [
   {
     id: uuidv4(),
     createdAt: new Date(),
