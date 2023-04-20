@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "start": "webpack serve --open"
   },
   "repository": {
     "type": "git",
@@ -18,14 +19,16 @@
   },
   "homepage": "https://github.com/Zan-Zan-Moon/toss-blog-clone#readme",
   "devDependencies": {
+    "html-webpack-plugin": "^5.5.1",
     "msw": "^1.2.1",
     "webpack": "^5.79.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
     "uuid": "^9.0.0"
   },
   "msw": {
-    "workerDirectory": ""
+    "workerDirectory": "./"
   }
 }
