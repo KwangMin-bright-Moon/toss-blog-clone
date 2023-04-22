@@ -1,15 +1,24 @@
 export class ArticleDto {
-  constructor(id, title, createdAt, thumbnailImage) {
+  constructor(id, title, content, createdAt, thumbnailImage) {
     this.id = id;
     this.title = title;
-    this.createdAt = createdAt;
+    this.content = content;
+    this.createdAt = createdAt.substr(0, 10);
     this.thumbnailImage = thumbnailImage;
   }
 }
 
 export class ArticleDetailDto extends ArticleDto {
-  constructor(id, title, createdAt, thumbnailImage, user, recommendedArticles) {
-    super(id, title, createdAt, thumbnailImage);
+  constructor(
+    id,
+    title,
+    content,
+    createdAt,
+    thumbnailImage,
+    user,
+    recommendedArticles
+  ) {
+    super(id, title, content, createdAt, thumbnailImage);
     (this.user = user), (this.recommendedArticles = recommendedArticles);
   }
 }
