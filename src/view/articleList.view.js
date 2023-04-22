@@ -5,7 +5,7 @@ const sectionTitle = {
   design: '디자인',
 };
 
-export default class ArticlesView {
+export default class ArticleListView {
   #url;
   #data;
   #sectionTitle;
