@@ -1,10 +1,12 @@
+import { TECH_ARTICLES } from './config.js';
 import { worker } from './mocks/browser.js';
 import Router from './router/router.js';
+import ArticlesView from './view/articles.view.js';
 
 const $main = document.getElementById('root');
 
 const components = {
-  home: () => ($main.innerText = 'articles'),
+  home: () => new ArticlesView(TECH_ARTICLES, 'tech').render($main),
   articles: () => ($main.innerText = 'articles'),
   articleDetail: (id) => ($main.innerText = `article: ${id}`),
   notFound: () => ($main.innerText = 'NotFound'),
