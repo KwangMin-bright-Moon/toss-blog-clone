@@ -5,14 +5,15 @@ export default class ArticleView {
   #data;
   #articleId;
 
-  constructor(url, articleId) {
+  constructor(url, params) {
     this.#url = url;
+    const { articleId } = params.find((param) => param['articleId']);
     this.#articleId = articleId;
   }
 
   async getData() {
-    this.#url.replace(':articleId', this.#articleId);
-    await fetch(this.#url)
+    const url = this.#url.replace(':articleId', this.#articleId);
+    await fetch(url)
       .then((res) => res.json())
       .then((article) => {
         this.#data = new ArticleDetailDto(
