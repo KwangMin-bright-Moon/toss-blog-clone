@@ -8,10 +8,12 @@ const sectionTitle = {
 export default class ArticleListView {
   #url;
   #data;
+  #section;
   #sectionTitle;
 
   constructor(url, section) {
     this.#url = url;
+    this.#section = section;
     this.#sectionTitle = sectionTitle[section];
   }
 
@@ -46,7 +48,7 @@ export default class ArticleListView {
         `<li>
            <img src='${article.thumbnailImage}' width='240' height="240""/>
             <div>
-                <a href='/tech/article/${article.id}' data-link>
+                <a href='/${this.#section}/article/${article.id}' data-link>
                          ${article.title}   
                 </a>
                 <p>${article.content}</p>
