@@ -2,7 +2,6 @@ export default class LayoutView {
   render() {
     return `
               <header>
-                  <span></span>
                   <a href="/" data-link>toss tech</a>
                   <nav>
                       <a href="/design" data-link>
