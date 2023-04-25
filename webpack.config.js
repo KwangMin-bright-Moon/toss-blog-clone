@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     main: './src/index.js',
     mockServiceWorker: './mockServiceWorker.js',
+    styles: './src/index.css',
   },
   output: {
     filename: '[name].js',
@@ -24,4 +25,12 @@ module.exports = {
     }),
   ],
   devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'], // CSS loader와 style loader 추가
+      },
+    ],
+  },
 };
