@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     main: './src/index.js',
     mockServiceWorker: './mockServiceWorker.js',
-    styles: './src/index.css',
+    styles: './src/style.css',
   },
   output: {
     filename: '[name].js',
