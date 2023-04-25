@@ -1,25 +1,25 @@
 import { rest } from 'msw';
-import { designPosts } from './resolvers/mockDesign.js';
-import { developPosts } from './resolvers/mockDevelop.js';
+import { designArticles } from './resolvers/mock.design.js';
+import { techArticles } from './resolvers/mock.tech.js';
 
 export const handlers = [
-  rest.get('dist/tech/posts', (req, res, ctx) => {
-    return res(ctx.json(developPosts));
+  rest.get('dist/tech/articles', (req, res, ctx) => {
+    return res(ctx.json(techArticles));
   }),
 
-  rest.get('dist/tech/post/:postId', (req, res, ctx) => {
-    const { postId } = req.params;
-    const post = developPosts.find((post) => post.id == postId);
-    return res(ctx.json(post));
+  rest.get('dist/tech/article/:articleId', (req, res, ctx) => {
+    const { articleId } = req.params;
+    const article = techArticles.find((article) => article.id == articleId);
+    return res(ctx.json(article));
   }),
 
-  rest.get('dist/design/posts', (req, res, ctx) => {
-    return res(ctx.json(designPosts));
+  rest.get('dist/design/articles', (req, res, ctx) => {
+    return res(ctx.json(designArticles));
   }),
 
-  rest.get('dist/design/post/:postId', (req, res, ctx) => {
-    const { postId } = req.params;
-    const post = designPosts.find((post) => post.id == postId);
-    return res(ctx.json(post));
+  rest.get('dist/design/article/:articleId', (req, res, ctx) => {
+    const { articleId } = req.params;
+    const article = designArticles.find((article) => article.id == articleId);
+    return res(ctx.json(article));
   }),
 ];
