@@ -12,13 +12,13 @@ class ConetntType {
 }
 
 class HttpClient {
-  baseUrl = '';
-  baseParams = {
+  #baseUrl = '';
+  #baseParams = {
     headers: {},
   };
 
-  constructor(config) {
-    Object.assign(this, config);
+  constructor(baseUrl, headers) {
+    (this.baseUrl = baseUrl), (this.baseParams.headers = headers);
   }
 
   request = async ({
