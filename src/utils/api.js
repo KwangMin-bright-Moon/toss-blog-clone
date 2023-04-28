@@ -1,10 +1,3 @@
-// 1. query param => p1 => 과제
-// 2. header => p0 => ok
-// 3. instance => p0 => ok
-// 4. error => p2
-// 5. json / formdata => p3 =>  ok
-// 6. abort controller => p4
-
 class ConetntType {
   #json = 'application/json';
   #formData = 'multipart/form-data';
