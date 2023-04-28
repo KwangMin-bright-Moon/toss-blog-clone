@@ -28,11 +28,6 @@ class HttpClient {
     Object.assign(this, config);
   }
 
-  contentFormatter = (type) => {
-    const body = type; // 타입에 따른 바디 포맷 코드
-    return body;
-  };
-
   request = async ({
     baseUrl,
     path,
@@ -44,18 +39,10 @@ class HttpClient {
     signal,
   }) => {
     path = this.setPathByParams(path, requestParams);
+
     queryString = new URLSearchParams(queryString).toString();
 
-    const options = {
-      headers: {
-        ...baseParams.headers,
-        'Content-Type': type,
-      },
-    };
-
-    body ? (options.body = this.contentFormatter(body)) : null;
-    method ? (options.method = method) : null;
-    signal ? (options.signal = signal) : null;
+    const fetchOptions = this.setOptions({ body, method, signal, type });
 
     try {
       const response = {
@@ -65,8 +52,12 @@ class HttpClient {
 
       const data = await fetch(
         `${baseUrl || this.baseUrl}${path}${queryString}`,
-        options
+        fetchOptions
       );
+
+      if (!data.ok) {
+        throw new Error('Failed fetch request!');
+      }
 
       response.data = await data.json();
     } catch (error) {
@@ -90,7 +81,118 @@ class HttpClient {
       requestParams,
       type,
     });
+
     return response;
+  };
+
+  post = async ({
+    baseUrl,
+    path,
+    queryString,
+    requestParams,
+    type = ConetntType.Json,
+    body,
+  }) => {
+    const method = 'POST';
+
+    const formattedBody = this.contentFormatter(body, type);
+
+    const response = await this.request({
+      baseUrl,
+      path,
+      queryString,
+      requestParams,
+      type,
+      body: formattedBody,
+      method,
+    });
+
+    return response;
+  };
+
+  put = async ({
+    baseUrl,
+    path,
+    queryString,
+    requestParams,
+    type = ConetntType.Json,
+    body,
+  }) => {
+    const method = 'PUT';
+
+    const formattedBody = this.contentFormatter(body, type);
+
+    const response = await this.request({
+      baseUrl,
+      path,
+      queryString,
+      requestParams,
+      type,
+      body: formattedBody,
+      method,
+    });
+
+    return response;
+  };
+
+  patch = async ({
+    baseUrl,
+    path,
+    queryString,
+    requestParams,
+    type = ConetntType.Json,
+    body,
+  }) => {
+    const method = 'PATCH';
+
+    const formattedBody = this.contentFormatter(body, type);
+
+    const response = await this.request({
+      baseUrl,
+      path,
+      queryString,
+      requestParams,
+      type,
+      body: formattedBody,
+      method,
+    });
+
+    return response;
+  };
+
+  delete = async ({
+    baseUrl,
+    path,
+    queryString,
+    requestParams,
+    type = ConetntType.Json,
+  }) => {
+    const method = 'DELETE';
+
+    const response = await this.request({
+      baseUrl,
+      path,
+      queryString,
+      requestParams,
+      type,
+      method,
+    });
+
+    return response;
+  };
+
+  contentFormatter = (body, type) => {
+    if (type === new ConetntType().Json) {
+      return JSON.stringify(body);
+    }
+    if (type === new ConetntType().FormData) {
+      const formData = new FormData();
+      body.forEach((value) => {
+        formData.append(value);
+      });
+      return formData;
+    }
+    return body;
   };
 
   setPathByParams = (path, params) => {
@@ -104,41 +206,19 @@ class HttpClient {
     });
     return path;
   };
+
+  setOptions = ({ body, method, signal, type }) => {
+    const options = {
+      headers: {
+        ...baseParams.headers,
+        'Content-Type': type,
+      },
+    };
+
+    body ? (options.body = this.contentFormatter(body)) : null;
+    method ? (options.method = method) : null;
+    signal ? (options.signal = signal) : null;
+
+    return options;
+  };
 }
-
-const token = '';
-
-const tossTechApi = new HttpClient({
-  baseUrl: 'www.toss.im',
-  baseParams: {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  },
-});
-
-const naverTechApi = new HttpClient({
-  baseUrl: 'www.tech.naver.com',
-  baseParams: {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  },
-});
-
-naverTechApi.request({ requestParams });
-
-naverTechApi.request({
-  path: '/lists',
-  method: 'GET',
-});
-
-naverTechApi.get({});
-
-naverTechApi.post({
-  path: '/lists/:id',
-});
-
-naverTechApi.patch({
-  path: "/list&keyword='foo'",
-});
