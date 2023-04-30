@@ -17,8 +17,8 @@ export default class ArticleListView {
     this.#sectionTitle = sectionTitle[section];
   }
 
-  async getData() {
-    await fetch(this.#url)
+  getData() {
+    fetch(this.#url)
       .then((res) => res.json())
       .then((articles) => {
         this.#data = articles.map(
@@ -34,8 +34,8 @@ export default class ArticleListView {
       });
   }
 
-  async render(main) {
-    await this.getData();
+  render(main) {
+    this.getData();
     const template = `
     <h1>${this.#sectionTitle}</h1>
     <ul> 
