@@ -3,7 +3,7 @@ export class ArticleDto {
     this.id = id;
     this.title = title;
     this.content = content;
-    this.createdAt = createdAt.substr(0, 10);
+    this.createdAt = createdAt;
     this.thumbnailImage = thumbnailImage;
   }
 }
