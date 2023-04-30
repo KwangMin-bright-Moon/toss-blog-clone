@@ -43,7 +43,7 @@ export default class ArticleListView {
     </ul>`;
 
     const articles = [];
-    this.#data.forEach((article) => {
+    this.#data?.forEach((article) => {
       articles.push(
         `<li>
            <img src='${article.thumbnailImage}' width='240' height="240""/>
@@ -52,7 +52,7 @@ export default class ArticleListView {
                          ${article.title}   
                 </a>
                 <p>${article.content}</p>
-                <p>${article.createdAt}</p>
+                <p>${getYearMonthDate(article.createdAt)}</p>
             </div>
         </li>
         `
@@ -62,3 +62,13 @@ export default class ArticleListView {
     main.innerHTML = template.replace('{aricle_list}', articles.join(''));
   }
 }
+
+// TODO: util directory로 이동
+export const getYearMonthDate = (targetDate) => {
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth() + 1;
+  const date = targetDate.getDate();
+  const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+
+  return `${year}-${formattedMonth}-${date}`;
+};
