@@ -11,25 +11,34 @@ export default class ArticleView {
     this.#articleId = articleId;
   }
 
-  async getData() {
+  getData() {
     const url = this.#url.replace(':articleId', this.#articleId);
-    await fetch(url)
+    fetch(url)
       .then((res) => res.json())
       .then((article) => {
-        this.#data = new ArticleDetailDto(
-          article.id,
-          article.title,
-          article.content,
-          article.createdAt,
-          article.thumbnailImage,
-          article.user,
-          article.recommendedArticles
-        );
+        const {
+          id,
+          title,
+          createdAt,
+          thumbnailImage,
+          user,
+          recommendedArticles,
+          content,
+        } = article;
+        this.#data = new ArticleDetailDto({
+          id,
+          title,
+          createdAt,
+          thumbnailImage,
+          user,
+          recommendedArticles,
+          content,
+        });
       });
   }
 
-  async render(main) {
-    await this.getData();
+  render(main) {
+    this.getData();
     const { thumbnailImage, title, user, createdAt, content } = this.#data;
     const template = `
     <div>
