@@ -21,16 +21,16 @@ export default class ArticleListView {
     fetch(this.#url)
       .then((res) => res.json())
       .then((articles) => {
-        this.#data = articles.map(
-          (article) =>
-            new ArticleDto(
-              article.id,
-              article.title,
-              article.content,
-              article.createdAt,
-              article.thumbnailImage
-            )
-        );
+        this.#data = articles.map((article) => {
+          const { id, title, content, createdAt, thumbnailImage } = article;
+          return new ArticleDto({
+            id,
+            title,
+            content,
+            createdAt,
+            thumbnailImage,
+          });
+        });
       });
   }
 
