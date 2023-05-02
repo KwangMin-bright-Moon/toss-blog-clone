@@ -1,4 +1,6 @@
 import { ArticleDto } from '../dto/article.dto';
+import HttpClient from '../utils/Api';
+import LayoutView from './layout.view';
 
 const sectionTitle = {
   tech: '개발',
@@ -17,36 +19,25 @@ export default class ArticleListView {
     this.#sectionTitle = sectionTitle[section];
   }
 
-  getData() {
-    fetch(this.#url)
-      .then((res) => res.json())
-      .then((articles) => {
-        this.#data = articles.map((article) => {
-          const { id, title, content, createdAt, thumbnailImage } = article;
-          return new ArticleDto({
-            id,
-            title,
-            content,
-            createdAt,
-            thumbnailImage,
-          });
-        });
-      });
-  }
-
-  render(main) {
-    this.getData();
-    const template = `
-    <h1>${this.#sectionTitle}</h1>
-    <ul> 
-    {aricle_list}
-    </ul>`;
+  async render(main) {
+    const articleList = await new HttpClient().get({ path: this.#url });
+    this.#data = articleList.data.map((article) => {
+      return new ArticleDto(article);
+    });
+    const layout = new LayoutView();
+    let template = `
+    <section>
+      <h1>${this.#sectionTitle}</h1>
+      <ul> 
+        {aricle_list}
+      </ul>
+    </section>`;
 
     const articles = [];
     this.#data?.forEach((article) => {
       articles.push(
         `<li>
-           <img src='${article.thumbnailImage}' width='240' height="240""/>
+           <img src='${article.thumbnailImage}'/>
             <div>
                 <a href='/${this.#section}/article/${article.id}' data-link>
                          ${article.title}   
@@ -59,12 +50,15 @@ export default class ArticleListView {
       );
     });
 
-    main.innerHTML = template.replace('{aricle_list}', articles.join(''));
+    template = template.replace('{aricle_list}', articles.join(''));
+
+    main.innerHTML = layout.wrap(template);
   }
 }
 
 // TODO: util directory로 이동
-export const getYearMonthDate = (targetDate) => {
+export const getYearMonthDate = (dates) => {
+  const targetDate = new Date(dates);
   const year = targetDate.getFullYear();
   const month = targetDate.getMonth() + 1;
   const date = targetDate.getDate();
