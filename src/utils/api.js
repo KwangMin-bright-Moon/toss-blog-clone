@@ -202,14 +202,14 @@ export default class HttpClient {
 
   setBaseParams = (params) => {
     const paramKeys = Object.keys(params);
-    for (key of paramKeys) {
+    for (const key of paramKeys) {
       if (key === 'body' && params[key]) {
-        this.#baseParams.body = this.contentFormatter(body);
+        this.#baseParams[key] = this.contentFormatter(params[key]);
         continue;
       }
 
       if (key === 'type' && params[key]) {
-        this.#baseParams.headers['Content-Type'] = type;
+        this.#baseParams.headers['Content-Type'] = params[key];
         continue;
       }
 
