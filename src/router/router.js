@@ -99,13 +99,13 @@ export default class Router {
     if (paramKeys.length) {
       const currentPaths = location.pathname.split('/');
 
-      const currentParams = [];
+      const currentParam = {};
 
       paramKeys.forEach((paramKeys) => {
-        currentParams.push({ [paramKeys.key]: currentPaths[paramKeys.index] });
+        currentParam[paramKeys.key] = currentPaths[paramKeys.index];
       });
 
-      return currentParams;
+      return currentParam;
     }
 
     return null;
