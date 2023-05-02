@@ -28,6 +28,7 @@
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
+    "mini-css-extract-plugin": "^2.7.5",
     "uuid": "^9.0.0"
   },
   "msw": {

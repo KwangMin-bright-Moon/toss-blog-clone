@@ -1,12 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
   entry: {
     main: './src/index.js',
     mockServiceWorker: './mockServiceWorker.js',
-    styles: './src/style.css',
   },
   output: {
     filename: '[name].js',
@@ -23,13 +23,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'dist/index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/[name].[contenthash:8].css',
+      chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
+    }),
   ],
   devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'], // CSS loader와 style loader 추가
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
