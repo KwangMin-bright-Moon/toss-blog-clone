@@ -11,14 +11,15 @@ class ConetntType {
   }
 }
 
-class HttpClient {
+export default class HttpClient {
   #baseUrl = '';
   #baseParams = {
     headers: {},
   };
 
   constructor(baseUrl, headers) {
-    (this.baseUrl = baseUrl), (this.baseParams.headers = headers);
+    this.#baseUrl = baseUrl ? baseUrl : '';
+    this.#baseParams.headers = headers ? headers : {};
   }
 
   request = async ({
@@ -31,21 +32,20 @@ class HttpClient {
     method,
     signal,
   }) => {
-    path = this.setPathByParams(path, requestParams);
+    path = this.setPathByRequstParams(path, requestParams);
 
     queryString = new URLSearchParams(queryString).toString();
 
-    const fetchOptions = this.setOptions({ body, method, signal, type });
+    this.setBaseParams({ body, method, signal, type });
 
+    const response = {
+      data: null,
+      error: null,
+    };
     try {
-      const response = {
-        data: null,
-        error: null,
-      };
-
       const data = await fetch(
-        `${baseUrl || this.baseUrl}${path}${queryString}`,
-        fetchOptions
+        `${baseUrl || this.#baseUrl}${path}${queryString}`,
+        this.#baseParams
       );
 
       if (!data.ok) {
@@ -188,7 +188,7 @@ class HttpClient {
     return body;
   };
 
-  setPathByParams = (path, params) => {
+  setPathByRequstParams = (path, params) => {
     const definedParams = path.split('/').filter((p) => p.startsWith(':'));
     definedParams.forEach((definedParam) => {
       const paramValue = params[definedParam.substring(1)];
@@ -200,18 +200,20 @@ class HttpClient {
     return path;
   };
 
-  setOptions = ({ body, method, signal, type }) => {
-    const options = {
-      headers: {
-        ...baseParams.headers,
-        'Content-Type': type,
-      },
-    };
+  setBaseParams = (params) => {
+    const paramKeys = Object.keys(params);
+    for (key of paramKeys) {
+      if (key === 'body' && params[key]) {
+        this.#baseParams.body = this.contentFormatter(body);
+        continue;
+      }
 
-    body ? (options.body = this.contentFormatter(body)) : null;
-    method ? (options.method = method) : null;
-    signal ? (options.signal = signal) : null;
+      if (key === 'type' && params[key]) {
+        this.#baseParams.headers['Content-Type'] = type;
+        continue;
+      }
 
-    return options;
+      this.#baseParams[key] = params[key];
+    }
   };
 }
