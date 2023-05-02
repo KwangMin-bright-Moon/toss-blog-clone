@@ -1,45 +1,27 @@
+article.view.js;
+
 import { ArticleDetailDto } from '../dto/article.dto';
+import HttpClient from '../utils/Api';
+import LayoutView from './layout.view';
 
 export default class ArticleView {
   #url;
   #data;
-  #articleId;
+  #requestParams;
 
-  constructor(url, params) {
+  constructor(url, requestParams) {
     this.#url = url;
-    const { articleId } = params.find((param) => param['articleId']);
-    this.#articleId = articleId;
+    this.#requestParams = requestParams;
   }
 
-  getData() {
-    const url = this.#url.replace(':articleId', this.#articleId);
-    fetch(url)
-      .then((res) => res.json())
-      .then((article) => {
-        const {
-          id,
-          title,
-          createdAt,
-          thumbnailImage,
-          user,
-          recommendedArticles,
-          content,
-        } = article;
-        this.#data = new ArticleDetailDto({
-          id,
-          title,
-          createdAt,
-          thumbnailImage,
-          user,
-          recommendedArticles,
-          content,
-        });
-      });
-  }
-
-  render(main) {
-    this.getData();
+  async render(main) {
+    const article = await new HttpClient().get({
+      path: this.#url,
+      requestParams: this.#requestParams,
+    });
+    this.#data = new ArticleDetailDto(article.data);
     const { thumbnailImage, title, user, createdAt, content } = this.#data;
+    const layoutView = new LayoutView();
     const template = `
     <div>
         <img src="${thumbnailImage}" />
@@ -57,6 +39,6 @@ export default class ArticleView {
     </div>
     `;
 
-    main.innerHTML = template;
+    main.innerHTML = layoutView.wrap(template);
   }
 }
