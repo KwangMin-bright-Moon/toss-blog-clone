@@ -19,13 +19,16 @@
   },
   "homepage": "https://github.com/Zan-Zan-Moon/toss-blog-clone#readme",
   "devDependencies": {
+    "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.1",
     "msw": "^1.2.1",
+    "style-loader": "^3.3.2",
     "webpack": "^5.79.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.3"
   },
   "dependencies": {
+    "mini-css-extract-plugin": "^2.7.5",
     "uuid": "^9.0.0"
   },
   "msw": {
