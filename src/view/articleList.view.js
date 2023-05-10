@@ -26,8 +26,8 @@ export default class ArticleListView {
     });
     const layout = new LayoutView();
     let template = `
-    <section>
-      <h1>${this.#sectionTitle}</h1>
+    <section class="article-list">
+      <h1 class="article-section">${this.#sectionTitle}</h1>
       <ul> 
         {aricle_list}
       </ul>
@@ -36,13 +36,18 @@ export default class ArticleListView {
     const articles = [];
     this.#data?.forEach((article) => {
       articles.push(
-        `<li>
-           <img src='${article.thumbnailImage}'/>
+        `<li class="article-list-item">
+           <img class="article-list-img" src='${article.thumbnailImage}'/>
             <div>
-                <a href='/${this.#section}/article/${article.id}' data-link>
+                <a class="article-title" href='/${this.#section}/article/${
+          article.id
+        }' data-link>
                          ${article.title}   
                 </a>
-                <p>${article.content}</p>
+                <p class="article-content">${article.content.substring(
+                  0,
+                  300
+                )}...</p>
                 <p>${getYearMonthDate(article.createdAt)}</p>
             </div>
         </li>
