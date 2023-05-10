@@ -2,6 +2,7 @@ import { TECH_ARTICLES } from './config.js';
 import { worker } from './mocks/browser.js';
 import Router from './router/router.js';
 import ArticleListView from './view/articleList.view.js';
+import style from './style.css';
 
 const $main = document.getElementById('root');
 
