@@ -30,7 +30,8 @@ export const designArticles = [
     title: '첫 UX writer는 무슨 일을 해야 할 까',
     content:
       '첫 UX writer가 해야 할 일은 사용자 경험과 관련된 콘텐츠를 작성하는 것입니다. UX writer는 사용자가 제품이나 서비스를 사용하는 과정에서 마주할 수 있는 모든 텍스트, 문구, 라벨, 버튼 등의 콘텐츠를 작성하는 역할을 담당합니다. 이러한 콘텐츠는 사용자 경험에 직접적인 영향을 미치기 때문에, UX writer는 제품이나 서비스의 성공에 매우 중요한 역할을 수행합니다.\n\n첫 UX writer가 해야 할 일은 다음과 같습니다.\n첫째로, 사용자의 목표와 요구사항을 이해하는 것입니다. UX writer는 사용자가 제품이나 서비스를 사용하는 목적과 그들이 원하는 기능을 파악해야 합니다. 이를 위해 사용자 조사, 피드백, 검증 및 분석을 수행하는 것이 좋습니다.',
-    thumbnailImage: 'https://static.toss.im/assets/toss-tech/webthumbnail.png',
+    thumbnailImage:
+      'https://wp.toss.tech/wp-content/uploads/2022/12/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA-2022-12-22-%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE-4.19.28.png',
     user: {
       profile:
         'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
@@ -99,7 +100,8 @@ export const designArticles = [
     title: '첫 UX writer는 무슨 일을 해야 할 까',
     content:
       '첫 UX writer가 해야 할 일은 사용자 경험과 관련된 콘텐츠를 작성하는 것입니다. UX writer는 사용자가 제품이나 서비스를 사용하는 과정에서 마주할 수 있는 모든 텍스트, 문구, 라벨, 버튼 등의 콘텐츠를 작성하는 역할을 담당합니다. 이러한 콘텐츠는 사용자 경험에 직접적인 영향을 미치기 때문에, UX writer는 제품이나 서비스의 성공에 매우 중요한 역할을 수행합니다.\n\n첫 UX writer가 해야 할 일은 다음과 같습니다.\n첫째로, 사용자의 목표와 요구사항을 이해하는 것입니다. UX writer는 사용자가 제품이나 서비스를 사용하는 목적과 그들이 원하는 기능을 파악해야 합니다. 이를 위해 사용자 조사, 피드백, 검증 및 분석을 수행하는 것이 좋습니다.',
-    thumbnailImage: 'mock_thumbnailImage',
+    thumbnailImage:
+      'https://static.toss.im/assets/toss-tech/cover-1st-interactiondesigner.png',
     user: {
       profile:
         'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
