@@ -1,7 +1,6 @@
-article.view.js;
-
 import { ArticleDetailDto } from '../dto/article.dto';
 import HttpClient from '../utils/Api';
+import { getYearMonthDate } from './articleList.view';
 import LayoutView from './layout.view';
 
 export default class ArticleView {
@@ -19,21 +18,26 @@ export default class ArticleView {
       path: this.#url,
       requestParams: this.#requestParams,
     });
+
     this.#data = new ArticleDetailDto(article.data);
     const { thumbnailImage, title, user, createdAt, content } = this.#data;
     const layoutView = new LayoutView();
     const template = `
-    <div>
+    <div class="article">
+        <div class="img">
         <img src="${thumbnailImage}" />
-        <h1>${title}</h1>
-        <div>
-            <img src="${user.profile}" />
-            <div>
-                <span>${user.name} | ${user.position}</spam>
-                <span>${createdAt}</spam>
+        </div>
+        <span class="title">${title}</span>
+        <div class="info">
+            <img class="avatar" src="${user.profile}" />
+            <div class="detail">
+                <span class="nameAndPosition">${user.name} | ${
+      user.position
+    }</spam>
+                <span class="date">${getYearMonthDate(createdAt)}</spam>
             </div>
         </div>
-        <div>
+        <div class="content">
             <p>${content}</p>
         </div>
     </div>

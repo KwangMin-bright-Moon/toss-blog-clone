@@ -27,7 +27,7 @@ export default class ArticleListView {
     const layout = new LayoutView();
     let template = `
     <section class="article-list">
-      <h1 class="article-section">${this.#sectionTitle}</h1>
+      <h1 class="section">${this.#sectionTitle}</h1>
       <ul> 
         {aricle_list}
       </ul>
@@ -36,19 +36,18 @@ export default class ArticleListView {
     const articles = [];
     this.#data?.forEach((article) => {
       articles.push(
-        `<li class="article-list-item">
-           <img class="article-list-img" src='${article.thumbnailImage}'/>
-            <div>
-                <a class="article-title" href='/${this.#section}/article/${
+        `<li class="item">
+          <div class="img"> 
+            <img src='${article.thumbnailImage}'/>
+          </div>
+          <div class="titleAndContents">
+            <a class="title" href='/${this.#section}/article/${
           article.id
         }' data-link>
                          ${article.title}   
-                </a>
-                <p class="article-content">${article.content.substring(
-                  0,
-                  300
-                )}...</p>
-                <p>${getYearMonthDate(article.createdAt)}</p>
+            </a>
+            <span class="content">${article.content}...</span>
+            <span class="date">${getYearMonthDate(article.createdAt)}</span>
             </div>
         </li>
         `
@@ -69,5 +68,5 @@ export const getYearMonthDate = (dates) => {
   const date = targetDate.getDate();
   const formattedMonth = month < 10 ? `0${month}` : `${month}`;
 
-  return `${year}-${formattedMonth}-${date}`;
+  return `${year}. ${formattedMonth}. ${date}`;
 };
