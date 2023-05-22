@@ -1,5 +1,5 @@
 export default class LayoutView {
-  #layoutTemplate = `
+  private layoutTemplate = `
     <header>
         <a href="/" data-link>toss tech</a>
         <nav>
@@ -60,7 +60,7 @@ export default class LayoutView {
     </footer>
   `;
 
-  wrap(template) {
-    return this.#layoutTemplate.replace('{content}', template);
+  wrap(template: string) {
+    return this.layoutTemplate.replace('{content}', template);
   }
 }

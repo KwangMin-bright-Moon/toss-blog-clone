@@ -3,23 +3,22 @@ import {
   DESIGN_ARTICLE_DETAIL,
   TECH_ARTICLES,
   TECH_ARTICLE_DETAIL,
-} from './config.js';
-import { worker } from './mocks/browser.js';
-import Router from './router/router.js';
-import ArticleView from './view/article.view.js';
-import ArticleListView from './view/articleList.view.js';
-import styles from './style.css';
+} from './config';
+import { worker } from './mocks/browser';
+import Router from './router/router';
+import ArticleView from './view/article.view';
+import ArticleListView from './view/articleList.view';
 
 const $main = document.getElementById('root');
 
 const components = {
   home: () => new ArticleListView(TECH_ARTICLES, 'tech').render($main),
   techArticles: () => new ArticleListView(TECH_ARTICLES, 'tech').render($main),
-  techArticleDetail: (params) =>
+  techArticleDetail: (params: any) =>
     new ArticleView(TECH_ARTICLE_DETAIL, params).render($main),
   designArticles: () =>
     new ArticleListView(DESIGN_ARTICLES, 'design').render($main),
-  designArticleDetail: (params) =>
+  designArticleDetail: (params: any) =>
     new ArticleView(DESIGN_ARTICLE_DETAIL, params).render($main),
   notFound: () => ($main.innerText = 'NotFound'),
 };

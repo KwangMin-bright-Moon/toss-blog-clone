@@ -1,48 +1,49 @@
 export default class Router {
-  #routes = [];
+  private routes: any[] = [];
 
-  addRouter = (path, component) => {
-    this.#routes.push({ path, component });
+  addRouter = (path: string, component: any) => {
+    this.routes.push({ path, component });
     return this;
   };
 
-  setNotFound = (notFound) => {
+  setNotFound = (notFound: any) => {
     this.addRouter('/NotFound', notFound);
     return this;
   };
 
   start = () => {
-    window.addEventListener('popstate', this.render);
+    window.addEventListener('popstate', this.route);
 
     window.addEventListener('DOMContentLoaded', () => {
       this.handleClickLink();
     });
 
-    this.render();
+    this.route();
   };
 
   handleClickLink = () => {
     document.body.addEventListener('click', (e) => {
-      if (!e.target.closest('[data-link]')) {
-        return;
+      if (e.target instanceof HTMLAnchorElement) {
+        if (!e.target.closest('[data-link]')) {
+          return;
+        }
+
+        e.preventDefault();
+
+        history.pushState(null, null, e.target.href);
+
+        this.route();
       }
-
-      e.preventDefault();
-
-      history.pushState(null, null, e.target.href);
-
-      this.render();
     });
   };
 
-  render = () => {
+  route = () => {
     const matchRoute = this.getMatchRoute();
-    const param = this.getParam(matchRoute);
-    matchRoute ? matchRoute.component(param) : this.renderNotFound();
+    matchRoute ? matchRoute.component() : this.renderNotFound();
   };
 
   renderNotFound = () => {
-    const notFoundRouter = this.#routes.find(
+    const notFoundRouter = this.routes.find(
       (route) => route.path === '/NotFound'
     );
 
@@ -55,7 +56,7 @@ export default class Router {
 
   getMatchRoute = () => {
     const currentPath = location.pathname;
-    const matchRoute = this.#routes.find((route) => {
+    const matchRoute = this.routes.find((route) => {
       if (this.isMatchedRoute(route.path, currentPath)) {
         return true;
       }
@@ -65,7 +66,7 @@ export default class Router {
     return matchRoute;
   };
 
-  isMatchedRoute(path, currentPath) {
+  isMatchedRoute(path: string, currentPath: string) {
     let index = 0;
 
     const compareLength = currentPath.split('/').length;
@@ -92,36 +93,4 @@ export default class Router {
 
     return true;
   }
-
-  getParam = (route) => {
-    const paramKeys = this.getParamKeys(route.path);
-
-    if (paramKeys.length) {
-      const currentPaths = location.pathname.split('/');
-
-      const currentParam = {};
-
-      paramKeys.forEach((paramKeys) => {
-        currentParam[paramKeys.key] = currentPaths[paramKeys.index];
-      });
-
-      return currentParam;
-    }
-
-    return null;
-  };
-
-  getParamKeys = (path) => {
-    const paths = path.split('/');
-
-    const paramKeys = [];
-
-    paths.forEach((path, index) => {
-      if (path.startsWith(':')) {
-        paramKeys.push({ key: path.slice(1), index });
-      }
-    });
-
-    return paramKeys;
-  };
 }

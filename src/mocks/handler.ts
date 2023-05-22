@@ -1,6 +1,6 @@
 import { rest } from 'msw';
-import { designArticles } from './resolvers/mock.design.js';
-import { techArticles } from './resolvers/mock.tech.js';
+import { designArticles } from './resolvers/mock.design';
+import { techArticles } from './resolvers/mock.tech';
 
 export const handlers = [
   rest.get('tech', (req, res, ctx) => {
