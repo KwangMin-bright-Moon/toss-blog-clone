@@ -1,3 +1,5 @@
+import View from '../view/view';
+
 export interface Article {
   id: string;
   title: string;
@@ -18,3 +20,8 @@ export interface User {
 }
 
 export type ViewSection = 'tech' | 'design';
+
+export interface Route {
+  path: string;
+  view: View;
+}

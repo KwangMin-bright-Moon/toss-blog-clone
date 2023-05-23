@@ -1,17 +1,19 @@
+import { Route } from './../types/index';
 export default class Router {
-  private routes: any[] = [];
+  private routes: Route[] = [];
 
-  addRouter = (path: string, component: any) => {
-    this.routes.push({ path, component });
+  addRouter = (route: Route): Router => {
+    this.routes.push(route);
     return this;
   };
 
-  setNotFound = (notFound: any) => {
-    this.addRouter('/NotFound', notFound);
-    return this;
-  };
+  // NOTE: 임시 주석 처리, not found view 생성 후 다시 작성 예정
+  // setNotFound = (notFound: any) => {
+  //   this.addRouter('/NotFound', notFound);
+  //   return this;
+  // };
 
-  start = () => {
+  start = (): void => {
     window.addEventListener('popstate', this.route);
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -21,28 +23,30 @@ export default class Router {
     this.route();
   };
 
-  handleClickLink = () => {
+  handleClickLink = (): void => {
     document.body.addEventListener('click', (e) => {
-      if (e.target instanceof HTMLAnchorElement) {
-        if (!e.target.closest('[data-link]')) {
-          return;
-        }
-
-        e.preventDefault();
-
-        history.pushState(null, null, e.target.href);
-
-        this.route();
+      if (!(e.target instanceof HTMLAnchorElement)) {
+        return;
       }
+
+      if (!e.target.closest('[data-link]')) {
+        return;
+      }
+
+      e.preventDefault();
+
+      history.pushState(null, null, e.target.href);
+
+      this.route();
     });
   };
 
-  route = () => {
+  route = (): void => {
     const matchRoute = this.getMatchRoute();
-    matchRoute ? matchRoute.component() : this.renderNotFound();
+    matchRoute ? matchRoute.view.render() : this.renderNotFound();
   };
 
-  renderNotFound = () => {
+  renderNotFound = (): string | void => {
     const notFoundRouter = this.routes.find(
       (route) => route.path === '/NotFound'
     );
@@ -51,10 +55,10 @@ export default class Router {
       return (document.querySelector('main').innerHTML = 'NotFound');
     }
 
-    notFoundRouter.component();
+    notFoundRouter.view.render();
   };
 
-  getMatchRoute = () => {
+  getMatchRoute = (): Route => {
     const currentPath = location.pathname;
     const matchRoute = this.routes.find((route) => {
       if (this.isMatchedRoute(route.path, currentPath)) {
@@ -66,7 +70,7 @@ export default class Router {
     return matchRoute;
   };
 
-  isMatchedRoute(path: string, currentPath: string) {
+  isMatchedRoute(path: string, currentPath: string): boolean {
     let index = 0;
 
     const compareLength = currentPath.split('/').length;
