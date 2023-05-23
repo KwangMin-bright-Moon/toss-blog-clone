@@ -1,27 +1,23 @@
-import { ArticleDetail } from '../types';
+import { TECH_ARTICLES } from '../config';
+import { ArticleDetail, ViewSection } from '../types';
 import HttpClient from '../utils/api';
-import LayoutView from './layout.view';
+import View from './view';
 
-export default class ArticleView {
-  private url: string;
+export default class ArticleView extends View {
   private articleDetail: ArticleDetail;
-  private requestParams: any;
 
-  constructor(url: string, requestParams: any) {
-    this.url = url;
-    this.requestParams = requestParams;
+  constructor(section: ViewSection, containerId: string) {
+    super(section, containerId);
   }
 
-  async render(main: HTMLElement) {
+  async render(): Promise<void> {
     const response = await new HttpClient('', {}).get({
-      path: this.url,
-      requestParams: this.requestParams,
+      path: TECH_ARTICLES,
       method: 'GET',
     });
     this.articleDetail = response.data;
     const { thumbnailImage, title, user, createdAt, content } =
       this.articleDetail;
-    const layoutView = new LayoutView();
     const template = `
     <div>
         <img src="${thumbnailImage}" />
@@ -39,6 +35,6 @@ export default class ArticleView {
     </div>
     `;
 
-    main.innerHTML = layoutView.wrap(template);
+    this.container.innerHTML = this.layout.wrap(template);
   }
 }

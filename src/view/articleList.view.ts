@@ -1,31 +1,30 @@
+import { DESIGN_ARTICLES, TECH_ARTICLES } from '../config';
 import { Article, ViewSection } from '../types';
 import HttpClient from '../utils/api';
+import { getYearMonthDate } from '../utils/date';
 import LayoutView from './layout.view';
+import View from './view';
 
 const sectionTitle: { tech: string; design: string } = {
   tech: '개발',
   design: '디자인',
 };
 
-export default class ArticleListView {
-  private url: string;
+export default class ArticleListView extends View {
   private articleList: Article[];
-  private section: ViewSection;
   private sectionTitle: string;
 
-  constructor(url: string, section: ViewSection) {
-    this.url = url;
-    this.section = section;
+  constructor(section: ViewSection, containerId: string) {
+    super(section, containerId);
     this.sectionTitle = sectionTitle[section];
   }
 
-  async render(main: HTMLElement) {
+  async render() {
     const response = await new HttpClient('', {}).get({
-      path: this.url,
+      path: this.sectionTitle === '개발' ? TECH_ARTICLES : DESIGN_ARTICLES,
       method: 'GET',
     });
     this.articleList = response.data;
-    const layout = new LayoutView();
     let template = `
     <section>
       <h1>${this.sectionTitle}</h1>
@@ -53,17 +52,6 @@ export default class ArticleListView {
 
     template = template.replace('{aricle_list}', articles.join(''));
 
-    main.innerHTML = layout.wrap(template);
+    this.container.innerHTML = this.layout.wrap(template);
   }
 }
-
-// TODO: util directory로 이동
-export const getYearMonthDate = (dates: Date) => {
-  const targetDate = new Date(dates);
-  const year = targetDate.getFullYear();
-  const month = targetDate.getMonth() + 1;
-  const date = targetDate.getDate();
-  const formattedMonth = month < 10 ? `0${month}` : `${month}`;
-
-  return `${year}-${formattedMonth}-${date}`;
-};
