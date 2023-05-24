@@ -1,6 +1,7 @@
 import { TECH_ARTICLES } from '../config';
 import { ArticleDetail, ViewSection } from '../types';
 import HttpClient from '../utils/api';
+import { getYearMonthDate } from '../utils/date';
 import View from './view';
 
 export default class ArticleView extends View {
@@ -19,17 +20,21 @@ export default class ArticleView extends View {
     const { thumbnailImage, title, user, createdAt, content } =
       this.articleDetail;
     const template = `
-    <div>
+    <div class="article">
+        <div class="img">
         <img src="${thumbnailImage}" />
-        <h1>${title}</h1>
-        <div>
-            <img src="${user.profile}" />
-            <div>
-                <span>${user.name} | ${user.position}</spam>
-                <span>${createdAt}</spam>
+        </div>
+        <span class="title">${title}</span>
+        <div class="info">
+            <img class="avatar" src="${user.profile}" />
+            <div class="detail">
+                <span class="nameAndPosition">${user.name} | ${
+      user.position
+    }</spam>
+                <span class="date">${getYearMonthDate(createdAt)}</spam>
             </div>
         </div>
-        <div>
+        <div class="content">
             <p>${content}</p>
         </div>
     </div>

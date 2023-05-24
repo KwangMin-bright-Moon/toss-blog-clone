@@ -26,8 +26,8 @@ export default class ArticleListView extends View {
     });
     this.articleList = response.data;
     let template = `
-    <section>
-      <h1>${this.sectionTitle}</h1>
+    <section class="article-list">
+      <h1 class="section">${this.sectionTitle}</h1>
       <ul> 
         {aricle_list}
       </ul>
@@ -36,15 +36,19 @@ export default class ArticleListView extends View {
     const articles: string[] = [];
     this.articleList?.forEach((article) => {
       articles.push(
-        `<li>
+        `<li class="item">
+          <div class="img">
            <img src='${article.thumbnailImage}'/>
-            <div>
-                <a href='/${this.section}/article/${article.id}' data-link>
+          </div>
+          <div class="titleAndContents">
+            <a class="title" href='/${this.section}/article/${
+          article.id
+        }' data-link>
                          ${article.title}   
-                </a>
-                <p>${article.content}</p>
-                <p>${getYearMonthDate(article.createdAt)}</p>
-            </div>
+            </a>
+            <span class="content">${article.content}</span>
+            <span class="date">${getYearMonthDate(article.createdAt)}</span>
+          </div>
         </li>
         `
       );
