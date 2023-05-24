@@ -2,6 +2,7 @@ import { worker } from './mocks/browser';
 import Router from './router/router';
 import ArticleView from './view/article.view';
 import ArticleListView from './view/articleList.view';
+const styles = require('./style.css');
 
 if (process.env.NODE_ENV === 'development') {
   worker.start();
