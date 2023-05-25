@@ -1,3 +1,4 @@
+import View from '../view/view';
 import { Route } from './../types/index';
 export default class Router {
   private routes: Route[] = [];
@@ -7,11 +8,10 @@ export default class Router {
     return this;
   };
 
-  // NOTE: 임시 주석 처리, not found view 생성 후 다시 작성 예정
-  // setNotFound = (notFound: any) => {
-  //   this.addRouter('/NotFound', notFound);
-  //   return this;
-  // };
+  setNotFound = (notFound: View): Router => {
+    this.addRouter({ path: '/NotFound', view: notFound });
+    return this;
+  };
 
   start = (): void => {
     window.addEventListener('popstate', this.route);

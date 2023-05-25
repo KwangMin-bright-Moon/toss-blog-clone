@@ -2,7 +2,6 @@ import { DESIGN_ARTICLES, TECH_ARTICLES } from '../config';
 import { Article, ViewSection } from '../types';
 import HttpClient from '../utils/api';
 import { getYearMonthDate } from '../utils/date';
-import LayoutView from './layout.view';
 import View from './view';
 
 const sectionTitle: { tech: string; design: string } = {
@@ -15,7 +14,7 @@ export default class ArticleListView extends View {
   private sectionTitle: string;
 
   constructor(section: ViewSection, containerId: string) {
-    super(section, containerId);
+    super({ section, containerId });
     this.sectionTitle = sectionTitle[section];
   }
 

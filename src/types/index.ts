@@ -1,5 +1,6 @@
 import View from '../view/view';
 
+// Data Schema
 export interface Article {
   id: string;
   title: string;
@@ -19,9 +20,17 @@ export interface User {
   profile: string;
 }
 
-export type ViewSection = 'tech' | 'design';
-
+// Route
 export interface Route {
   path: string;
   view: View;
+}
+
+// View
+export type ViewSection = 'tech' | 'design';
+
+export interface ViewData {
+  containerId: string;
+  template?: string;
+  section?: ViewSection;
 }
