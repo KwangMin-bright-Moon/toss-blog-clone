@@ -1,5 +1,5 @@
 import { ViewData, ViewSection } from '../types';
-import LayoutView from './layout.view';
+import LayoutView from './layout/layout.view';
 
 export default abstract class View {
   protected container: HTMLElement;
