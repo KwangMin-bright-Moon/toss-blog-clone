@@ -1,7 +1,5 @@
-import { DESIGN_ARTICLE_DETAIL } from '../config';
-import { TECH_ARTICLE_DETAIL } from '../config';
 import { ArticleDetail, ViewSection } from '../types';
-import HttpClient from '../utils/api';
+import { ArticleDetailApi } from '../utils/api';
 import { getYearMonthDate } from '../utils/date';
 import View from './view';
 
@@ -13,22 +11,7 @@ export default class ArticleView extends View {
   }
 
   async render(): Promise<void> {
-    const path = window.location.pathname;
-
-    const id = path.split('article/')[1];
-
-    const url = path.startsWith('/tech')
-      ? TECH_ARTICLE_DETAIL
-      : DESIGN_ARTICLE_DETAIL;
-
-    const filteredUrl = url.replace(':articleId', id);
-
-    const response = await new HttpClient('', {}).get({
-      path: filteredUrl,
-      method: 'GET',
-    });
-
-    this.articleDetail = response.data;
+    this.articleDetail = await new ArticleDetailApi().get<ArticleDetail>();
 
     const { thumbnailImage, title, user, createdAt, content } =
       this.articleDetail;

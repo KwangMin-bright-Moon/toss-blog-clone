@@ -34,3 +34,24 @@ export interface ViewData {
   template?: string;
   section?: ViewSection;
 }
+
+// Api
+export interface RequestData {
+  baseUrl?: string;
+  path: string;
+  queryString?: string;
+  requestParams?: any;
+  contentType?: ContentType;
+  body?: any;
+  method: Method;
+  signal?: AbortSignal;
+}
+
+export interface RequestHeaders {
+  contentType?: ContentType;
+  token?: string;
+}
+
+export type ContentType = 'application/json' | 'multipart/form-data';
+
+export type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';

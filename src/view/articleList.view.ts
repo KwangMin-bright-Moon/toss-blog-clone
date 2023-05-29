@@ -1,6 +1,5 @@
-import { DESIGN_ARTICLES, TECH_ARTICLES } from '../config';
 import { Article, ViewSection } from '../types';
-import HttpClient from '../utils/api';
+import { ArticleListApi } from '../utils/api';
 import { getYearMonthDate } from '../utils/date';
 import View from './view';
 
@@ -19,11 +18,7 @@ export default class ArticleListView extends View {
   }
 
   async render() {
-    const response = await new HttpClient('', {}).get({
-      path: this.sectionTitle === '개발' ? TECH_ARTICLES : DESIGN_ARTICLES,
-      method: 'GET',
-    });
-    this.articleList = response.data;
+    this.articleList = await new ArticleListApi(this.section).get<Article[]>();
     let template = `
     <section class="article-list">
       <h1 class="section">${this.sectionTitle}</h1>
