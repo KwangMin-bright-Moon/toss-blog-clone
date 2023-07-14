@@ -20,7 +20,7 @@ module.exports = {
       directory: path.join(__dirname, 'dist'),
     },
     open: true,
-    port: 'auto',
+    port: '3000',
     historyApiFallback: {
       index: '/index.html',
     },
@@ -30,8 +30,7 @@ module.exports = {
       template: 'dist/index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/css/[name].[contenthash:8].css',
-      chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css',
+      filename: '[name].css',
     }),
   ],
   devtool: 'source-map',

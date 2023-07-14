@@ -3,7 +3,7 @@ import Router from './router/router';
 import ArticleView from './view/article.view';
 import ArticleListView from './view/articleList.view';
 import NotFoundView from './view/notfound.view';
-const styles = require('./style.css');
+import './style.css';
 
 if (process.env.NODE_ENV === 'development') {
   worker.start();
